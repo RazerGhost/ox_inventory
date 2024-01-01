@@ -463,27 +463,23 @@ button:active {
 // Hotslot
 .hotslot-wrapper {
   display: grid;
-  width: $gridSize;
+  height: $containerSize;
   height: fit-content;
   grid-template-columns: repeat(1, $gridSize);
-  grid-template-rows: repeat(5, $gridSize);
+  grid-auto-rows: $gridSize + 0.22vh;
   gap: $gridGap;
 }
 
 
 .hotslot-container {
-  background-color: rgba(12, 12, 17, 0.966);
-  position: relative;
+  background-color: $backgroundColor;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  gap: 30px;
-  height: fit-content;
-  width: fit-content;
-  margin-bottom: 5.3rem;
+  margin-top: -5.55rem;
 }
 
 // hotbar
