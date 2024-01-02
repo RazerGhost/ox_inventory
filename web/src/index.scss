@@ -128,7 +128,7 @@ button:active {
 }
 
 .inventory-wrapper-container {
-  background-color: #0c0c11f6;
+  background-color: $backgroundColor;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -282,6 +282,7 @@ button:active {
   justify-content: space-between;
   p {
     font-size: 16px;
+    padding-bottom: 5px;
   }
 }
 
