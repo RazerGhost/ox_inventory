@@ -27,9 +27,10 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
       return console.log(`Cannot move container ${sourceSlot.name} when opened`);
   }
 
+  // Modify findAvailableSlot to start from the sixth slot
   const targetSlot = target
     ? targetInventory.items[target.item.slot - 1]
-    : findAvailableSlot(sourceSlot, sourceData, targetInventory.items);
+    : findAvailableSlot(sourceSlot, sourceData, targetInventory.items.slice(5));
 
   if (targetSlot === undefined) return console.error('Target slot undefined!');
 

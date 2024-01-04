@@ -29,7 +29,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory, direction: 'left' | 'right
       <div className="inventory-grid-wrapper" style={{ pointerEvents: isBusy ? 'none' : 'auto' }}>
         <div>
           <div className="inventory-grid-header-wrapper">
-            <p>{inventory.label} ({inventory.pid})</p>
+            <p>{inventory.label}</p>
             {inventory.maxWeight && (
               <p>
                 {weight / 1000}/{inventory.maxWeight / 1000}kg
@@ -40,7 +40,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory, direction: 'left' | 'right
         </div>
         <div className={direction === 'left' ? 'inventory-grid-container-left' : 'inventory-grid-container-right'} ref={containerRef}>
           <>
-            {inventory.items.slice(0, (page + 1) * PAGE_SIZE).map((item, index) => (
+            {inventory.items.slice(5, (page + 1) * PAGE_SIZE).map((item, index) => (
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
                 item={item}

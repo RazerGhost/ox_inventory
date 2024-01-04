@@ -21,7 +21,6 @@ debugData([
         type: 'player',
         slots: 50,
         label: 'Bob Smith',
-        pid: 1,
         weight: 3000,
         maxWeight: 5000,
         items: [
@@ -65,7 +64,6 @@ debugData([
         type: 'crafting',
         slots: 5000,
         label: 'Bob Smith',
-        pid: 1,
         weight: 3000,
         maxWeight: 5000,
         items: [
