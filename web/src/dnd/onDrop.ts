@@ -30,7 +30,7 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
   // Modify findAvailableSlot to start from the sixth slot
   const targetSlot = target
     ? targetInventory.items[target.item.slot - 1]
-    : findAvailableSlot(sourceSlot, sourceData, targetInventory.items.slice(5));
+    : findAvailableSlot(sourceSlot, sourceData, targetInventory.items);
 
   if (targetSlot === undefined) return console.error('Target slot undefined!');
 

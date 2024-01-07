@@ -14,6 +14,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory, direction: 'left' | 'right
     () => (inventory.maxWeight !== undefined ? Math.floor(getTotalWeight(inventory.items) * 1000) / 1000 : 0),
     [inventory.maxWeight, inventory.items]
   );
+  const isPlayerInventory = inventory.type === 'player';
   const [page, setPage] = React.useState(0);
   const containerRef = useRef(null);
   const { ref, entry } = useIntersection({ threshold: 0.5 });
@@ -40,7 +41,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory, direction: 'left' | 'right
         </div>
         <div className={direction === 'left' ? 'inventory-grid-container-left' : 'inventory-grid-container-right'} ref={containerRef}>
           <>
-            {inventory.items.slice(5, (page + 1) * PAGE_SIZE).map((item, index) => (
+            {inventory.items.slice((isPlayerInventory && direction === 'left') ? 5 : 0, (page + 1) * PAGE_SIZE).map((item, index) => (
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
                 item={item}

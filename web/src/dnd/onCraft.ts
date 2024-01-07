@@ -1,7 +1,6 @@
 import { store } from '../store';
 import { DragSource, DropTarget } from '../typings';
 import { isSlotWithItem } from '../helpers';
-import { findAvailableSlot } from '../helpers';
 import { Items } from '../store/items';
 import { craftItem } from '../thunks/craftItem';
 
@@ -21,7 +20,7 @@ export const onCraft = (source: DragSource, target: DropTarget) => {
 
   if (sourceData === undefined) return console.error(`Item ${sourceSlot.name} data undefined!`);
 
-  const targetSlot = target ? targetInventory.items[target.item.slot - 1] : findAvailableSlot(sourceSlot, sourceData, targetInventory.items.slice(5));
+  const targetSlot = targetInventory.items[target.item.slot - 1];
 
   if (targetSlot === undefined) return console.error(`Target slot undefined`);
 
