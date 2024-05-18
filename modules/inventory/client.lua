@@ -49,10 +49,6 @@ function Inventory.CanAccessTrunk(entity)
     offset = GetOffsetFromEntityInWorldCoords(entity, offset.x, offset.y, offset.z)
 
     if #(GetEntityCoords(cache.ped) - offset) < 1.5 then
-        local coords = GetEntityCoords(entity)
-
-        TaskTurnPedToFaceCoord(cache.ped, coords.x, coords.y, coords.z, 0)
-
         return doorId
     end
 end
@@ -62,10 +58,6 @@ function Inventory.OpenTrunk(entity)
     local door = Inventory.CanAccessTrunk(entity)
 
     if not door then return end
-
-    if GetVehicleDoorLockStatus(entity) > 1 then
-        return lib.notify({ id = 'vehicle_locked', type = 'error', description = locale('vehicle_locked') })
-    end
 
     local plate = GetVehicleNumberPlateText(entity)
     local invId = 'trunk'..plate
