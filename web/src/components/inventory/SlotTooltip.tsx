@@ -27,6 +27,7 @@ const SlotTooltip: React.ForwardRefRenderFunction<
         <div className="tooltip-wrapper" ref={ref} style={style}>
           <div className="tooltip-header-wrapper">
             <p>{item.name}</p>
+            <p>{item.type}</p>
           </div>
           <Divider />
         </div>
@@ -40,7 +41,7 @@ const SlotTooltip: React.ForwardRefRenderFunction<
                 <p>{(item.duration !== undefined ? item.duration : 3000) / 1000}s</p>
               </div>
             ) : (
-              <p>{item.metadata?.type}</p>
+              <p>{item.metadata?.type || item.type}</p>
             )}
           </div>
           <Divider />

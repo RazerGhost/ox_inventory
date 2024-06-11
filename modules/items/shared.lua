@@ -16,6 +16,7 @@ end
 ---@param data OxItem
 local function newItem(data)
 	data.weight = data.weight or 0
+    data.type = data.type or 'Misc'
 
 	if data.close == nil then
 		data.close = true

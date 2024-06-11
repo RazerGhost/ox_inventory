@@ -27,6 +27,7 @@ debugData([
           {
             slot: 1,
             name: 'iron',
+            type: 'Materials',
             weight: 3000,
             metadata: {
               description: `name: Svetozar Miletic  \n Gender: Male`,
@@ -38,18 +39,20 @@ debugData([
             count: 5,
           },
           { slot: 2, name: 'powersaw', weight: 0, count: 1, metadata: { durability: 75 } },
-          { slot: 3, name: 'copper', weight: 100, count: 12, metadata: { type: 'Special' } },
+          { slot: 3, name: 'copper', weight: 100, type: 'Materials', count: 12, metadata: { type: 'Special' } },
           {
             slot: 4,
             name: 'water',
             weight: 100,
-            count: 1,
+            count: 5,
+            type: 'Drinks',
             metadata: { description: 'Generic item description' },
           },
-          { slot: 5, name: 'water', weight: 100, count: 1 },
+          { slot: 5, name: 'water', type: 'Drinks', weight: 100, count: 1 },
           {
             slot: 6,
             name: 'backwoods',
+            type: 'Misc',
             weight: 100,
             count: 1,
             metadata: {
@@ -119,7 +122,7 @@ const App: React.FC = () => {
   );
 };
 
-addEventListener("dragstart", function(event) {
+addEventListener("dragstart", function (event) {
   event.preventDefault()
 })
 

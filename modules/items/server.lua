@@ -155,6 +155,7 @@ CreateThread(function()
 						item.close = item.shouldClose == nil and true or item.shouldClose
 						item.stack = not item.unique and true
 						item.description = item.description
+                        item.type = item.type or 'Misc'
 						item.weight = item.weight or 0
 						dump[k] = item
 						count += 1
@@ -171,6 +172,7 @@ CreateThread(function()
 
 	[%q] = {
 		label = %q,
+        type = %q,
 		weight = %s,
 		stack = %s,
 		close = %s,
