@@ -45,7 +45,7 @@ plyState:set('canUseWeapons', false, false)
 
 local function canOpenInventory()
     if not PlayerData.loaded then
-        return shared.info('cannot open inventory', '(is not loaded)')
+        return shared.info('cannot open inventory', '(player inventory has not loaded)')
     end
 
     if IsPauseMenuActive() then return end
@@ -601,14 +601,25 @@ local function useSlot(slot, noAnim)
 
 					if newAmmo == currentAmmo then return end
 
-					if cache.vehicle then
-						SetAmmoInClip(playerPed, currentWeapon.hash, newAmmo)
+                    AddAmmoToPed(playerPed, currentWeapon.hash, addAmmo)
 
+					if cache.vehicle then
 						if cache.seat > -1 or IsVehicleStopped(cache.vehicle) then
 							TaskReloadWeapon(playerPed, true)
-						end
+                        else
+                            -- This is a hacky solution for forcing ammo to properly load into the
+                            -- weapon clip while driving; without it, ammo will be added but won't
+                            -- load until the player stops doing anything. i.e. if you keep shooting,
+                            -- the weapon will not reload until the clip empties.
+                            -- And yes - for some reason RefillAmmoInstantly needs to run in a loop.
+                            lib.waitFor(function()
+                                RefillAmmoInstantly(playerPed)
+
+                                local _, ammo = GetAmmoInClip(playerPed, currentWeapon.hash)
+                                return ammo == newAmmo or nil
+                            end)
+                        end
 					else
-						AddAmmoToPed(playerPed, currentWeapon.hash, addAmmo)
 						Wait(100)
 						MakePedReload(playerPed)
 
@@ -1352,7 +1363,7 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 		end
 
 		if client.parachute and GetPedParachuteState(playerPed) ~= -1 then
-			Utils.DeleteEntity(client.parachute)
+			Utils.DeleteEntity(client.parachute[1])
 			client.parachute = false
 		end
 
