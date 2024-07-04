@@ -6,8 +6,6 @@ import { getTotalWeight } from '../../helpers';
 import { useAppSelector } from '../../store';
 import { useIntersection } from '../../hooks/useIntersection';
 
-const PAGE_SIZE = 30;
-
 const InventoryGrid: React.FC<{ inventory: Inventory, direction: 'left' | 'right' }> = ({ inventory, direction }) => {
   const weight = React.useMemo(
 
@@ -40,11 +38,10 @@ const InventoryGrid: React.FC<{ inventory: Inventory, direction: 'left' | 'right
         </div>
         <div className={direction === 'left' ? 'inventory-grid-container-left' : 'inventory-grid-container-right'} ref={containerRef}>
           <>
-            {inventory.items.slice(0, (page + 1) * PAGE_SIZE).map((item, index) => (
+            {inventory.items.map((item, index) => (
               <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
                 item={item}
-                ref={index === (page + 1) * PAGE_SIZE - 1 ? ref : null}
                 inventoryType={inventory.type}
                 inventoryGroups={inventory.groups}
                 inventoryId={inventory.id}
