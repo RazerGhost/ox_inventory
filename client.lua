@@ -431,7 +431,12 @@ local function useItem(data, cb, noAnim)
         return
     end
 
-	if currentWeapon?.timer and currentWeapon.timer > 100 then return end
+	if currentWeapon and currentWeapon.timer ~= 0 then
+        if IsPedShooting(playerPed) then return end
+        if currentWeapon.timer - GetGameTimer() > 100 then return end
+
+        DisablePlayerFiring(cache.playerId, true)
+    end
 
     if invOpen and data.close then client.closeInventory() end
 
@@ -1442,7 +1447,7 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 				DisableControlAction(0, 80, true)
 				DisableControlAction(0, 140, true)
 
-				if currentWeapon.metadata.durability <= 0 then
+				if currentWeapon.metadata.durability <= 0 or not currentWeapon.timer then
 					DisablePlayerFiring(playerId, true)
 				elseif client.aimedfiring and not currentWeapon.melee and currentWeapon.group ~= `GROUP_PETROLCAN` and not IsPlayerFreeAiming(playerId) then
 					DisablePlayerFiring(playerId, true)
@@ -1497,7 +1502,7 @@ RegisterNetEvent('ox_inventory:setPlayerInventory', function(currentDrops, inven
 							end
 
 							currentWeapon.timer = GetGameTimer() + 200
-						else currentWeapon.timer = GetGameTimer() + 400 end
+						else currentWeapon.timer = GetGameTimer() + (GetWeaponTimeBetweenShots(currentWeapon.hash) * 1000) + 100 end
 					end
 				elseif currentWeapon.throwable then
 					if not invBusy and IsControlPressed(0, 24) then
@@ -1657,6 +1662,8 @@ end
 
 RegisterNUICallback('giveItem', function(data, cb)
 	cb(1)
+
+    if usingItem then return end
 
 	if client.giveplayerlist then
 		local nearbyPlayers = lib.getNearbyPlayers(GetEntityCoords(playerPed), 3.0)
